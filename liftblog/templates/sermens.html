@@ -1,0 +1,43 @@
+{% extends 'master.html' %}
+
+{% block fullblock %}{% endblock %}
+
+{% block paddedblock %}
+
+  <h1>See our sermens:</h1>
+
+  <p style="font-size: 24px;">Video Sermens</p>
+  {% for video in videos %}
+    <div class="sermen-card">
+      <div class="card-text">
+        <h1>{{ video.title }}</h1>
+        {% if video.description|length > 100 %}
+          <p>{{ video.description|slice:100 }}...</p>
+        {% else %}
+          <p>{{ video.description }}</p>
+        {% endif %}
+      </div>
+      
+      <a class="card-button" href="/sermens/videos/{{ video.id }}">View</a>
+    </div>
+  {% endfor %}
+
+  <p style="font-size: 24px;">Text Sermens:</p>
+  {% for post in posts %}
+    <div class="sermen-card" style="--animation-order: {{ post.id }};">
+      <img width="125" height="125" src="{{ post.post_image.url }}" />
+
+      <div class="card-text">
+        <h1>{{ post.title }}</h1>
+        {% if post.content|length > 100 %}
+          <p>{{ post.content|slice:100 }}...</p>
+        {% else %}
+          <p>{{ post.content }}</p>
+        {% endif %}
+      </div>
+
+      <a class="card-button" href="/sermens/{{ post.id }}">View</a>
+    </div>
+  {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'master.html' %}
+
+{% block fullblock %}
+
+  <video autoplay controls>
+    <source src="src="{{ video.post_video.url }}"" type="video/mp4">
+    Video type invalid or not supported...
+  </video>
+
+{% endblock %}
+
+{% block paddedblock %}
+  <h1 class="video-title">{{ video.title }}</h1>
+  <p class="video-details">{{ video.author }} | {{ video.created_at|date:"M j Y" }}</p>
+
+  <p>
+    {{ video.description|linebreaks }}
+  </p>
+{% endblock %}

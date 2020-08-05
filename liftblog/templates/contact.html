@@ -1,0 +1,35 @@
+{% extends 'master.html' %}
+
+{% block fullblock %}{% endblock %}
+
+{% block paddedblock %}
+
+<p>
+  Send us a message and we'll get back to you as soon
+  as we can!
+</p>
+
+<form class="contact-form" action="/contact/" method="post">
+  {% csrf_token %}
+  <div class="input-section">
+    <small style="color: red;">{{ form.email.errors }}</small>
+    <label for="{{ form.email.id_for_label }}">Email:</label>
+    {{ form.email }}
+  </div>
+
+  <div class="input-section">
+    <small style="color: red;">{{ form.subject.errors }}</small>
+    <label for="{{ form.subject.id_for_label }}">Subject:</label>
+    {{ form.subject }}
+  </div>
+
+  <div class="input-section">
+    <small style="color: red;">{{ form.message.errors }}</small>
+    <label for="{{ form.message.id_for_label }}">Message:</label>
+    {{ form.message }}
+  </div>
+
+  <button type="submit" class="form-button">Send</button>
+</form>
+
+{% endblock %}

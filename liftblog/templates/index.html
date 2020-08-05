@@ -1,0 +1,48 @@
+{% extends 'master.html' %}
+
+{% block fullblock %}
+  <div id="slider" class="owl-carousel">
+    {% for i in images %}
+      <div class="item"><img class="carousel-image" src="{{ i.image.url }}" alt="Carousel Image"></div>
+    {% endfor %}
+  </div>
+
+  <div id="carouselText">
+    <% currentText %>
+  </div>
+{% endblock %}
+
+{% block paddedblock %}
+  <h1 style="margin: 15px auto; text-align: center; font-family: sans-serif; color: black; font-size: 45px;">
+    See our Newest Posts & Sermens
+  </h1>
+  <div class="newest-posts">
+    <a class="post-card" href="/sermens/videos/{{ video.id }}">
+        <h2>{{ video.title }}</h2>
+        {% if video.description|length > 250 %}
+          <p>{{ video.description|slice:250 }}...</p>
+        {% else %}
+          <p>{{ video.description }}</p>
+        {% endif %}
+    </a>
+
+    {% for post in posts %}
+      <a class="post-card" href="/sermens/{{ post.id }}">
+          <h2>{{ post.title }}</h2>
+          {% if post.content|length > 250 %}
+            <p>{{ post.content|slice:250 }}...</p>
+          {% else %}
+            <p>{{ post.content }}</p>
+          {% endif %}
+      </a>
+    {% endfor %}
+  </div>
+
+  <p style="text-align: center;">
+    LIFT Church strives to connect people through the word of God while
+    teaching the good-mannered way of Jesus Christ. Come join us as we
+    explore the meaning of God's lessons, start at the <a href="/about-us/">
+    About Us</a> page. Or learn more about <a href="/our-beliefs/">Our
+    Beliefs</a> & <a href="/core-values/">Core Values</a>.
+  </p>
+{% endblock %}

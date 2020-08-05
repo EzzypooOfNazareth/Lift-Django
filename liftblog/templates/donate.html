@@ -1,0 +1,62 @@
+{% extends 'master.html' %}
+
+
+{% block fullblock %}{% endblock %}
+
+{% block paddedblock %}
+  <h1 style="margin: 15px auto; text-align: center; font-family: sans-serif; color: black; font-size: 45px;">
+    Enter your info below to make a donation
+  </h1>
+
+  <div id="donation">
+    <div v-if="screenState == true">
+      <div class="flex-input">
+        <div class="input-section" style="flex-grow: 1;">
+          <label>Name on Card:</label>
+          <input type="text" name="Name"  placeholder="enter name..." />
+        </div>
+        <div class="input-section" style="margin-left: 15px;">
+          <label>CVV:</label>
+          <input type="text" name="CVV"  placeholder="XXX" />
+        </div>
+      </div>
+
+      <div class="flex-input">
+        <div class="input-section" style="flex-grow: 1;">
+          <label>Card Number:</label>
+          <input type="text" name="Credit" placeholder="Card number"/>
+        </div>
+
+        <div class="input-section" style="width: 250px; margin-left: 15px;">
+          <label>Expiration Date:</label>
+          <div style="display: flex;">
+            <input maxlength="2" type="text" name="monthex" style="width: 50px !important;" />
+            /
+            <input maxlength="4" type="text" name="yearex" style="width: 75px !important;"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="donation-input">
+        <div class="input-section">
+          <label>Donation Amount:</label>
+          <div style="display: flex;">
+            $<input id="amount" type="text" name="Amount" />
+          </div>
+        </div>
+      </div>
+
+      <button v-on:click="changeState" type="button" name="button" class="form-button">Submit</button>
+    </div>
+
+    <div v-else>
+      <h1 style="font-family: sans-serif; color: black; font-size: 45px;">
+        Thank you for your donation!
+      </h1>
+      <br />
+      <p>
+        You're donation of $<% amount %> has been received.
+      </p>
+    </div>
+  </div>
+{% endblock %}

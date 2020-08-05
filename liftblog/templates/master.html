@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>
+      {% if title %}
+        {{ title }}
+      {% else %}
+        LIFT Church
+      {% endif %}
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="{% static 'site.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  </head>
+  <body>
+
+    <header class="lift-header">
+      <img class="bg-image" src="{% static 'us-flag.jpg' %}" alt="United States Flag">
+
+      <div class="overlay">
+        <div class="branding">
+          <a href="/" class="image-container">
+            <img class="brand-image" src="{% static 'LIFT-LOGO.png' %}" alt="LIFT logo" />
+          </a>
+          <a href="/" class="title-text">
+            <span>L</span>
+            <span>I</span>
+            <span>F</span>
+            <span>T</span>
+          </a>
+        </div>
+
+        <div id="burger-menu">
+          <img src="{% static 'bars-solid.svg' %}" alt="Menu Button" v-on:click="toggleShow" />
+
+          <div v-bind:class="[show ? 'showMenu' : '', 'menuClass']">
+            <p class="closeMenu" v-on:click="toggleShow">X</p>
+
+            <ul class="menu-links">
+              <li><a href="/">Home</a></li>
+              <li><a href="/about-us/">About Us</a></li>
+              <li><a href="/team/">Our Team</a></li>
+              <li><a href="/donate/">Donate</a></li>
+              <li><a href="/sermens/">Sermens</a></li>
+              <li><a href="/ministries/">Ministries</a></li>
+              <li><a href="/our-mission/">Our Mission</a></li>
+              <li><a href="/our-vision/">Our Vision</a></li>
+              <li><a href="/our-beliefs/">Our Beliefs</a></li>
+              <li><a href="/core-values/">Core Values</a></li>
+              <li><a href="/roman-road/">Roman Road</a></li>
+              <li><a href="/contact/">Contact</a></li>
+
+              {% if user.is_authenticated %}
+                <li style="margin-top: 50px;"><a href="#">Admin</a></li>
+                <li><a href="#">Logout</a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    {% block fullblock %}{% endblock %}
+
+    <div class="padded-block">
+      {% block paddedblock %}{% endblock %}
+    </div>
+
+    <footer>
+      <div class="footer-container">
+        <p>LIFT Church &#169;{% now "Y" %}</p>
+        <p style="font-size: 18px;">All Rights Reserved</p>
+      </div>
+    </footer>
+
+  </body>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+  <script type="text/javascript" src="{% static 'hamburgerMenu.js' %}"></script>
+  <script type="text/javascript" src="{% static 'slider.js' %}"></script>
+  <script type="text/javascript" src="{% static 'carouselText.js' %}"></script>
+  <script type="text/javascript" src="{% static 'donation.js' %}"></script>
+</html>

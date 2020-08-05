@@ -1,0 +1,36 @@
+{% extends 'master.html' %}
+
+{% block fullblock %}{% endblock %}
+
+{% block paddedblock %}
+
+{% load static %}
+
+<div class="image-row">
+  <img width="400" height="400" src="{% static 'gerard_profile.jpg' %}" alt="Gerard Barral" />
+
+  <p class="image-row-caption">
+    Gerard Barral <br />
+    Founder, Visionary, & Pastor
+  </p>
+</div>
+
+<div class="image-row">
+  <p class="image-row-caption">
+    Mary Barral <br />
+    Treasurer & Teacher
+  </p>
+
+  <img width="400" height="400" src="{% static 'mary_profile.jpg' %}" alt="Gerard Graduation photo" />
+</div>
+
+<div class="image-row">
+  <img width="400" height="400" src="{% static 'victoria_profile.jpg' %}" alt="Gerard Barral" />
+
+  <p class="image-row-caption">
+    Victoria Barral <br />
+    Worship Leader
+  </p>
+</div>
+
+{% endblock %}
