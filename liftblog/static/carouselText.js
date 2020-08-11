@@ -3,7 +3,7 @@
     delimiters: ['<%', '%>'],
     el: '#carouselText',
     data: {
-      messageText: ['Welcome', 'We\'re glad you\'re here!', 'Come learn the word of God', 'Transforming Lives'],
+      messageText: ['Welcome!', 'We\'re glad \nyou\'re here!', 'Come learn \nthe word of God!', 'Transforming Lives!'],
       timer: null,
       currentIndex: 0
     },

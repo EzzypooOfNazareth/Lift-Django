@@ -4,7 +4,11 @@
 
 {% block paddedblock %}
 
-<p>
+{% if message %}
+  <p class="email-success">✔ {{ message }}</p>
+{% endif %}
+
+<p style="font-family: 'Lato', sans-serf; font-size: 26px;">
   Send us a message and we'll get back to you as soon
   as we can!
 </p>

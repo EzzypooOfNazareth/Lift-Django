@@ -8,12 +8,11 @@
   </div>
 
   <div id="carouselText">
-    <% currentText %>
+    <pre><span><% currentText %></span></pre>
   </div>
-{% endblock %}
 
-{% block paddedblock %}
-  <h1 style="margin: 15px auto; text-align: center; font-family: sans-serif; color: black; font-size: 45px;">
+
+  <h1 style="margin: 15px auto; text-align: center; font-family: 'Oswald', sans-serif; color: black; font-size: 45px;">
     See our Newest Posts & Sermens
   </h1>
   <div class="newest-posts">
@@ -28,6 +27,10 @@
 
     {% for post in posts %}
       <a class="post-card" href="/sermens/{{ post.id }}">
+          {% if post.post_image %}
+            <img src="{{post.post_image.url}}" alt="post image">
+          {% endif %}
+
           <h2>{{ post.title }}</h2>
           {% if post.content|length > 250 %}
             <p>{{ post.content|slice:250 }}...</p>
@@ -37,8 +40,10 @@
       </a>
     {% endfor %}
   </div>
+{% endblock %}
 
-  <p style="text-align: center;">
+{% block paddedblock %}
+  <p style="text-align: center; font-family: 'Lato', sans-serif; font-size: 24px;">
     LIFT Church strives to connect people through the word of God while
     teaching the good-mannered way of Jesus Christ. Come join us as we
     explore the meaning of God's lessons, start at the <a href="/about-us/">
