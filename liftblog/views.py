@@ -114,12 +114,24 @@ def contact(request):
         form = ContactForm(request.POST)
 
         if form.is_valid():
+            subject = form.cleaned_data['subject']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+
             send_mail(
-                form.cleaned_data['subject'],
-                form.cleaned_data['message'],
-                form.cleaned_data['email'],
+                subject,
+                message,
+                email,
                 ['emoore13@ycp.edu']
             )
+
+            context = {
+                'title': 'LIFT Church - Message Received',
+                'form': ContactForm(),
+                'message': 'Message Sent'
+            }
+
+            return render(request, 'contact.html', context)
     else:
         form = ContactForm()
         context = {

@@ -1,28 +1,15 @@
 {% extends 'master.html' %}
 
-{% block fullblock %}{% endblock %}
+{% block fullblock %}
+{% load static %}
+<div id="slider" class="owl-carousel">
+  <div class="item"><img style="object-fit: contain;" class="carousel-image" src="{% static 'g-graduation.jpg' %}" alt="Carousel Image"></div>
+  <div class="item"><img style="object-fit: contain;" class="carousel-image" src="{% static 'm-graduation.jpg' %}" alt="Carousel Image"></div>
+  <div class="item"><img style="object-fit: contain;" class="carousel-image" src="{% static 'barral-family.jpg' %}" alt="Carousel Image"></div>
+</div>
+{% endblock %}
 
 {% block paddedblock %}
-
-  {% load static %}
-
-  <div class="image-row">
-    <img width="400" height="400" src="{% static 'g-graduation.jpg' %}" alt="Gerard Graduation photo" />
-
-    <p class="image-row-text">
-      Gerard Barral is a graduate of Zion Bible Institue-Township of Barrington
-      as well as the founder and lead pastor for LIFT.
-    </p>
-  </div>
-
-  <div class="image-row">
-    <p class="image-row-text">
-      Mary Barral is a graduate of Zion Bible Institue-Township of Barrington
-      as well as the treasurer and teacher.
-    </p>
-
-    <img width="400" height="400" src="{% static 'm-graduation.jpg' %}" alt="Gerard Graduation photo" />
-  </div>
 
   <p>
     Founded in 2013 by Gerard and Mary Barral. The Barral's are graduates of the Zion Bible Institue-Township
@@ -33,7 +20,6 @@
     and Distinction as Dallas-Senior High School. Gerard and Mary have been married for 21 years, a real life experience.
     In addition to their children, they love their dog, Oreo.
     <br />
-    <img style="width: 100%; height: auto; margin: 15px 0;" src="{% static 'barral-family.jpg' %}" alt="Barral Family" />
     <br />
     It is their joy to spread the message of the gospel of The Lord, Jesus Christ and His Kingdom. The areas of
     ministerial focus will be multifaceted as express in their <a href="/our-mission/">mission</a>, <a href="/our-vision/">vision</a>,

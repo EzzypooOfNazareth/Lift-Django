@@ -4,9 +4,17 @@
 {% block fullblock %}{% endblock %}
 
 {% block paddedblock %}
-  <h1 style="margin: 15px auto; text-align: center; font-family: sans-serif; color: black; font-size: 45px;">
+
+  {% load static %}
+
+  <h1 style="margin: 15px auto; text-align: left; font-family: 'Oswald', sans-serif; color: black; font-size: 45px;">
     Enter your info below to make a donation
   </h1>
+
+  <p>
+    LIFT Church is a non-profit organization. All donations
+    and gifts are tax deductible from the IRS.
+  </p>
 
   <div id="donation">
     <div v-if="screenState == true">
@@ -46,7 +54,10 @@
         </div>
       </div>
 
-      <button v-on:click="changeState" type="button" name="button" class="form-button">Submit</button>
+      <div style="display: flex;">
+        <button v-on:click="changeState" type="button" name="button" class="form-button">Submit</button>
+        <img style="margin-left: 15px;" width="300" height="94" src="{% static 'securetransaction.png' %}" alt="Stripe secure transaction">
+      </div>
     </div>
 
     <div v-else>
