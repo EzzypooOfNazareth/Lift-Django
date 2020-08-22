@@ -3,7 +3,9 @@
 {% block fullblock %}
 
   <video autoplay controls>
-    <source src="src="{{ video.post_video.url }}"" type="video/mp4">
+    <source src="{{ video.post_video.url }}" type="video/mp4">
+    <source src="{{ video.post_video.url }}" type="video/ogv">
+    <source src="{{ video.post_video.url }}" type="video/ogg">
     Video type invalid or not supported...
   </video>
 
