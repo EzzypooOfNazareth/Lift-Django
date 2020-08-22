@@ -1,0 +1,53 @@
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+nav {
+    background-color: #263238;
+}
+
+.center-box {
+    max-width: 1170px;
+    margin: 25px auto 0 auto;
+}
+
+.login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #eeeeee;
+    border-radius: 5px;
+    padding: 15px 25px;
+}
+
+.image-tile {
+    width: 100%;
+    height: 125px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.image-tile img {
+    width: 100%;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 5px;
+    object-position: center;
+}
+
+.delete-wrapper {
+    position: relative;
+    left: 8px;
+    top: -120px;
+}
+
+.delete-btn {
+    background-color: red;
+    margin: 0;
+    padding: 0 8px 0 8px;
+    color: white;
+    box-sizing: border-box;
+    z-index: 999;
+}

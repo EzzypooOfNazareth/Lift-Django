@@ -1,17 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-from .models import HomeCarousel, TextPost, VideoPost
-from .forms import ContactForm
+from django.core import serializers
+from django.contrib.auth import logout, login, authenticate
+from .models import HomeCarousel, TextPost, VideoPost, HomeCarouselText
+from .forms import ContactForm, CreateTextPost, CreateVideoPost, CreateCarousel, CreateCarouselText
+
+# Site Views
 
 def index(request):
     images = HomeCarousel.objects.all()
     new_posts = TextPost.objects.order_by('-id')[:2]
     new_video = VideoPost.objects.order_by('-id').first()
+    text = HomeCarouselText.objects.all()
+
+    text = serializers.serialize('json', text)
+
     context = {
         'title': 'LIFT Church - Home',
         'images': images,
         'posts': new_posts,
-        'video': new_video
+        'video': new_video,
+        'text': text
     }
 
     return render(request, 'index.html', context)
@@ -140,3 +149,162 @@ def contact(request):
         }
 
     return render(request, 'contact.html', context)
+
+
+# Admin views
+
+def adminHome(request):
+    if request.user.is_authenticated:
+        return render(request, 'admin_home.html')
+
+    return redirect('/admin_login/')
+
+def adminLogin(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('/lift-admin/')
+
+    return render(request, 'admin_login.html')
+
+def adminLogout(request):
+    logout(request)
+    return redirect('/')
+
+def allPosts(request):
+    posts = TextPost.objects.all()
+
+    context = {
+        "title": "Text Posts",
+        "posts": posts
+    }
+
+    return render(request, 'admin_posts.html', context)
+
+def createPost(request):
+    if request.method == 'POST':
+        form = CreateTextPost(request.POST, request.FILES)
+
+        if form.is_valid():
+            post = TextPost.objects.create(
+                title = form.cleaned_data['title'],
+                post_image = request.FILES['post_image'],
+                content = form.cleaned_data['content'],
+                author = request.user
+            )
+
+            post.save()
+            return redirect('/lift-admin/posts/')
+    else:
+        form = CreateTextPost()
+        
+    return render(request, 'add-post.html', {"form": form})
+
+def deletePost(request, id):
+    post = TextPost.objects.get(id=id)
+    post.delete()
+
+    return redirect('/lift-admin/posts/')
+
+def allVideos(request):
+    videos = VideoPost.objects.all()
+
+    context = {
+        "title": "Video Posts",
+        "videos": videos
+    }
+
+    return render(request, "admin_videos.html", context)
+
+def createVideo(request):
+    if request.method == 'POST':
+        form = CreateVideoPost(request.POST, request.FILES)
+
+        if form.is_valid():
+            video = VideoPost.objects.create(
+                title = form.cleaned_data['title'],
+                post_video = request.FILES['post_video'],
+                description = form.cleaned_data['description'],
+                author = request.user
+            )
+
+            video.save()
+            return redirect('/lift-admin/videos')
+    else:
+        form = CreateVideoPost()
+
+    return render(request, 'add-video.html', {"form": form})
+
+
+def deleteVideo(request, id):
+    video = VideoPost.objects.get(id=id)
+    video.delete()
+
+    return redirect('/lift-admin/videos/')
+
+def allCarousel(request):
+    images = HomeCarousel.objects.all()
+
+    context = {
+        "title": "Carousel Images",
+        "images": images
+    }
+
+    return render(request, 'admin_images.html', context)
+
+def addCarousel(request):
+    if request.method == 'POST':
+        form = CreateCarousel(request.POST, request.FILES)
+
+        if form.is_valid():
+            image = HomeCarousel(
+                image = request.FILES['image']
+            )
+
+            image.save()
+            return redirect('/lift-admin/carousel/')
+    else:
+        form = CreateCarousel()
+
+    return render(request, 'add-image.html', {"form": form})
+
+def deleteImage(request, id):
+    image = HomeCarousel.objects.get(id=id)
+    image.delete()
+
+    return redirect('/lift-admin/carousel/')
+
+def allCarouselText(request):
+    text = HomeCarouselText.objects.all()
+    context = {
+        "title": "Carousel Text",
+        "text": text
+    }
+
+    return render(request, "admin_text.html", context)
+
+def addCarouselText(request):
+    if request.method == 'POST':
+        form = CreateCarouselText(request.POST)
+
+        if form.is_valid():
+            text = HomeCarouselText(
+                text = form.cleaned_data['text']
+            )
+
+            text.save()
+            return redirect('/lift-admin/carousel-text/')
+    else:
+        form = CreateCarouselText()
+
+    return render(request, 'add-text.html', {"form": form})
+
+def deleteText(request, id):
+    text = HomeCarouselText.objects.get(id=id)
+    text.delete()
+
+    return redirect('/lift-admin/carousel-text/')

@@ -1,0 +1,28 @@
+{% extends 'admin_master.html' %}
+
+{% block admin_block %}
+<div class="center-box">
+    <form class="login-form" method="POST" action="/admin_login/">
+        {% csrf_token %}
+        <h1 style="margin-top: 0;">Login:</h1>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="Username" id="username" name="username" type="text" class="validate">
+                <label for="username">Username:</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="Password" id="password" name="password" type="password" class="validate">
+                <label for="username">Password:</label>
+            </div>
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+            Submit <i class="material-icons right">send</i>
+        </button>
+    </form>
+</div>
+{% endblock %}

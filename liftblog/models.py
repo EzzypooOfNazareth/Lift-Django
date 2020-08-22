@@ -23,3 +23,9 @@ class VideoPost(models.Model):
 
 class HomeCarousel(models.Model):
     image = models.ImageField(upload_to='homeCarouselImages/')
+
+class HomeCarouselText(models.Model):
+    text = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.text

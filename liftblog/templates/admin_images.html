@@ -1,0 +1,22 @@
+{% extends 'admin_master.html' %}
+
+{% block admin_block %}
+    <div class="center-box">
+        <div class="row">
+            <a href="add-image/" class="waves-effect waves-light btn">Add Image</a>
+        </div>
+
+        <div class="row">
+            {% for image in images %}
+                <div class="col s2">
+                    <div class="image-tile">
+                        <img src="{{ image.image.url }}" />
+                        <form class="delete-wrapper" action="{{ image.id }}/delete/" >
+                            <button type="submit" class="waves-effect waves-light btn delete-btn">X</button>
+                        </form>
+                    </div>
+                </div>           
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

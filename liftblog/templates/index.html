@@ -50,4 +50,39 @@
     About Us</a> page. Or learn more about <a href="/our-beliefs/">Our
     Beliefs</a> & <a href="/core-values/">Core Values</a>.
   </p>
+
+
+  <script>
+  var carousel_text = new Vue({
+    delimiters: ['<%', '%>'],
+    el: '#carouselText',
+    data: {
+      messageText: [],
+      timer: null,
+      currentIndex: 0
+    },
+    mounted: function() {
+      var data = JSON.parse("{{ text|escapejs }}")
+
+      for (var i=0; i < data.length; i++) {
+        this.messageText.push(data[i].fields.text)
+      }
+
+      this.startSlide();
+    },
+    methods: {
+      startSlide: function() {
+        this.timer = setInterval(this.next, 4500);
+      },
+      next: function() {
+        this.currentIndex += 1;
+      },
+    },
+    computed: {
+      currentText: function() {
+        return this.messageText[Math.abs(this.currentIndex) % this.messageText.length]
+      }
+    }
+  })
+</script>
 {% endblock %}

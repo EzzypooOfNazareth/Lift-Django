@@ -60,7 +60,7 @@
               <li><a href="/contact/">Contact</a></li>
 
               {% if user.is_authenticated %}
-                <li style="margin-top: 50px;"><a href="#">Admin</a></li>
+                <li style="margin-top: 50px;"><a href="/lift-admin/">Admin</a></li>
                 <li><a href="#">Logout</a></li>
               {% endif %}
             </ul>
@@ -89,6 +89,6 @@
 
   <script type="text/javascript" src="{% static 'hamburgerMenu.js' %}"></script>
   <script type="text/javascript" src="{% static 'slider.js' %}"></script>
-  <script type="text/javascript" src="{% static 'carouselText.js' %}"></script>
+  <!--<script type="text/javascript" src="{% static 'carouselText.js' %}"></script>-->
   <script type="text/javascript" src="{% static 'donation.js' %}"></script>
 </html>
