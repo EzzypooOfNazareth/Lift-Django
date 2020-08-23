@@ -18,7 +18,7 @@
                         {% endif %}
                     </div>
                     <div class="card-action" style="display: flex;">
-                        <a class="waves-effect waves-teal btn-flat orange-text" href="#">Edit</a>
+                        <a class="waves-effect waves-teal btn-flat orange-text" href="{{ post.id }}/edit">Edit</a>
                         <form action="{{ post.id }}/delete/" method="POST">
                             {% csrf_token %}
                             <button class="waves-effect waves-teal btn-flat orange-text" style="margin: 0; padding: 0;" type="submit">Delete</button>

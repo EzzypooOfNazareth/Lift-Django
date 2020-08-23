@@ -1,6 +1,7 @@
 from django import forms
+from django.db import models
 from django.forms import ModelForm
-from . import models
+from .models import TextPost, VideoPost, HomeCarousel, HomeCarouselText
 
 class ContactForm(forms.Form):
     email = forms.CharField(max_length=75)
@@ -9,20 +10,20 @@ class ContactForm(forms.Form):
 
 class CreateTextPost(ModelForm):
     class Meta:
-        model = models.TextPost
+        model = TextPost
         fields = ['title', 'post_image', 'content']
 
 class CreateVideoPost(ModelForm):
     class Meta:
-        model = models.VideoPost
+        model = VideoPost
         fields = ['title', 'post_video', 'description']
 
 class CreateCarousel(ModelForm):
     class Meta:
-        model = models.HomeCarousel
+        model = HomeCarousel
         fields = ['image']
 
 class CreateCarouselText(ModelForm):
     class Meta:
-        model = models.HomeCarouselText
+        model = HomeCarouselText
         fields = ['text']

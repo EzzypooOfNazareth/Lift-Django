@@ -4,9 +4,9 @@
 
 {% block paddedblock %}
 
-  <h1 style="font-family: 'Oswald', sans-serif; font-size: 45px; margin-bottom: 36px;">See our Sermens:</h1>
+  <h1 style="font-family: 'Oswald', sans-serif; font-size: 45px; margin-bottom: 36px;">See our Sermons:</h1>
 
-  <p style="font-size: 24px; font-family: 'Lato', sans-serif;">Video Sermens</p>
+  <p style="font-size: 24px; font-family: 'Lato', sans-serif;">Video Sermons</p>
   {% for video in videos %}
     <div class="sermen-card">
       <div class="card-text">
@@ -22,7 +22,7 @@
     </div>
   {% endfor %}
 
-  <p style="font-size: 24px; font-family: 'Lato', sans-serif;">Text Sermens:</p>
+  <p style="font-size: 24px; font-family: 'Lato', sans-serif;">Text Sermons:</p>
   {% for post in posts %}
     <div class="sermen-card" style="--animation-order: {{ post.id }};">
       <img width="125" height="125" src="{{ post.post_image.url }}" />

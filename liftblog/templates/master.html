@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
+    <script src="https://js.stripe.com/v3/"></script>
+
     <link rel="stylesheet" href="{% static 'site.css' %}" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
   </head>
@@ -50,7 +52,7 @@
             <p class="closeMenu" v-on:click="toggleShow">X</p>
 
             <ul class="menu-links">
-              <li><a href="/sermens/">Sermens</a></li>
+              <li><a href="/sermens/">Sermons</a></li>
               <li><a href="/ministries/">Ministries</a></li>
               <li><a href="/our-mission/">Our Mission</a></li>
               <li><a href="/our-vision/">Our Vision</a></li>

@@ -1,0 +1,23 @@
+{% extends 'admin_master.html' %}
+
+{% block admin_block %}
+<div class="center-box">
+    <form method="POST" action="/lift-admin/carousel-text/{{ text.id }}/edit/">
+        {% csrf_token %}
+        {% load widget_tweaks %}
+        <h1 style="margin-top: 0;">Edit Carousel Text:</h1>
+
+        <div class="row">
+            <div class="input-field col s6">
+                <small style="color: red;">{{ form.text.errors }}</small>
+                {{ form.text }}
+                <label for="{{ form.text.id_for_label }}">Text:</label>
+            </div>
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+            Create <i class="material-icons right">send</i>
+        </button>
+    </form>
+</div>
+{% endblock %}

@@ -5,6 +5,10 @@ from django.contrib.auth import logout, login, authenticate
 from .models import HomeCarousel, TextPost, VideoPost, HomeCarouselText
 from .forms import ContactForm, CreateTextPost, CreateVideoPost, CreateCarousel, CreateCarouselText
 
+import stripe
+stripe.api_key = "sk_test_51HEkuTLZInSgn8lOO6oYl4c7GoX5OThsVniX0YgJ6sFG3tVPCbRaZygsRNNUTosOE9nSsAxrQYcehXJaCw8pHvgi00P2AvPECA"
+
+
 # Site Views
 
 def index(request):
@@ -111,6 +115,23 @@ def donate(request):
 
     return render(request, 'donate.html', context)
 
+def charge(request):
+    if request.method == 'POST':
+        print(request.POST)
+
+        customer = stripe.Customer.create(
+            name = request.POST['name']
+        )
+
+ #       charge = stripe.Charge.create(
+ #           customer = customer,
+ #           amount = (request.POST['amount'] * 100),
+ #           currency= 'usd',
+ #           description = 'Donation'
+ #       )
+
+    return render(request, 'thankyou.html')
+
 def team(request):
     context = {
         'title': 'LIFT Church - Team'
@@ -204,6 +225,31 @@ def createPost(request):
         
     return render(request, 'add-post.html', {"form": form})
 
+def editPost(request, id):
+    post = TextPost.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = CreateTextPost(request.POST, request.FILES)
+
+        if form.is_valid():
+            post.title = form.cleaned_data['title']
+            if len(request.FILES) != 0:
+                post.post_image = request.FILES['post_image']
+            else:
+                post.post_image = post.post_image
+            post.content = form.cleaned_data['content']
+
+            post.save()
+            return redirect('/lift-admin/posts/')
+    else:
+        form = CreateTextPost(initial = {
+            'title': post.title,
+            'post_image': post.post_image,
+            'content': post.content
+        })
+
+    return render(request, 'edit-post.html', {"form": form, "post": post})
+
 def deletePost(request, id):
     post = TextPost.objects.get(id=id)
     post.delete()
@@ -238,6 +284,31 @@ def createVideo(request):
         form = CreateVideoPost()
 
     return render(request, 'add-video.html', {"form": form})
+
+def editVideo(request, id):
+    video = VideoPost.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = CreateVideoPost(request.POST, request.FILES)
+
+        if form.is_valid():
+            video.title = form.cleaned_data['title']
+            if len(request.FILES) != 0:
+                video.post_video = request.FILES['post_video']
+            else:
+                video.post_video = video.post_video
+            video.description = form.cleaned_data['description']
+
+            video.save()
+            return redirect('/lift-admin/videos/')
+    else:
+        form = CreateVideoPost(initial = {
+            'title': video.title,
+            'post_video': video.post_video,
+            'description': video.description
+        })
+
+    return render(request, 'edit-video.html', {"form": form, "video": video})
 
 
 def deleteVideo(request, id):
@@ -302,6 +373,21 @@ def addCarouselText(request):
         form = CreateCarouselText()
 
     return render(request, 'add-text.html', {"form": form})
+
+def editCarouselText(request, id):
+    text = HomeCarouselText.objects.get(id=id)
+
+    if request.method =='POST':
+        form = CreateCarouselText(request.POST)
+        if form.is_valid():
+            text.text = form.cleaned_data['text']
+            text.save()
+            return redirect('/lift-admin/carousel-text/')
+    else:
+        form = CreateCarouselText(initial= {
+            'text': text.text
+        })
+    return render(request, 'edit-text.html', {"form": form, 'text': text})
 
 def deleteText(request, id):
     text = HomeCarouselText.objects.get(id=id)

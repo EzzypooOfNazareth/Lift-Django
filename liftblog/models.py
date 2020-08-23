@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class TextPost(models.Model):
     title = models.CharField(max_length=75)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    post_image = models.ImageField(upload_to='images/')
+    post_image = models.ImageField(upload_to='images/', blank=True)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
 
@@ -14,7 +14,7 @@ class TextPost(models.Model):
 class VideoPost(models.Model):
     title = models.CharField(max_length=75)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    post_video = models.FileField(upload_to='videos/')
+    post_video = models.FileField(upload_to='videos/', blank=True)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
 

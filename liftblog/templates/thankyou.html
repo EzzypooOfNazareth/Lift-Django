@@ -1,0 +1,23 @@
+{% extends 'master.html' %}
+
+
+{% block fullblock %}{% endblock %}
+
+{% block paddedblock %}
+
+  {% load static %}
+
+  <h1 style="margin: 15px auto; text-align: left; font-family: 'Oswald', sans-serif; color: black; font-size: 45px;">
+    Thank You!
+  </h1>
+
+  <div id="donation">
+    <h1 style="font-family: sans-serif; color: black; font-size: 45px;">
+        Thank you for your donation!
+      </h1>
+      <br />
+      <p>
+        You're donation of $10 has been received.
+      </p>
+  </div>
+{% endblock %}

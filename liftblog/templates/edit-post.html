@@ -2,10 +2,10 @@
 
 {% block admin_block %}
 <div class="center-box">
-    <form method="POST" enctype="multipart/form-data" action="/lift-admin/videos/add-video/">
+    <form method="POST" enctype="multipart/form-data" action="/lift-admin/posts/{{ post.id }}/edit/">
         {% csrf_token %}
         {% load widget_tweaks %}
-        <h1 style="margin-top: 0;">Create Video:</h1>
+        <h1 style="margin-top: 0;">Edit Post:</h1>
 
         <div class="row">
             <div class="input-field col s6">
@@ -15,22 +15,22 @@
             </div>
 
             <div class="col s6">
-                <small style="color: red;">{{ form.post_video.errors }}</small>
-                <label style="margin-right: 15px;" for="{{ form.post_video.id_for_label }}">Video:</label>
-                {{ form.post_video }}
+                <small style="color: red;">{{ form.post_image.errors }}</small>
+                <label style="margin-right: 15px;" for="{{ form.post_image.id_for_label }}">Image:</label>
+                {{ form.post_image }}
             </div>
         </div>
 
         <div class="row">
             <div class="col s12">
-                <small style="color: red;">{{ form.description.errors }}</small>
-                <label for="{{ form.description.id_for_label }}">Description:</label>
-                {{ form.description }}
+                <small style="color: red;">{{ form.content.errors }}</small>
+                <label for="{{ form.content.id_for_label }}">content:</label>
+                {{ form.content }}
             </div>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit" name="action">
-            Create <i class="material-icons right">send</i>
+            Edit <i class="material-icons right">create</i>
         </button>
     </form>
 </div>

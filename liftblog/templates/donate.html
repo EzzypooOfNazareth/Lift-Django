@@ -17,57 +17,109 @@
   </p>
 
   <div id="donation">
-    <div v-if="screenState == true">
-      <div class="flex-input">
-        <div class="input-section" style="flex-grow: 1;">
+    <form action="/charge/" method="POST" id="payment-form">
+      {% csrf_token %}
+
+      <div class="input-section">
           <label>Name on Card:</label>
-          <input type="text" name="Name"  placeholder="enter name..." />
+          <input type="text" name="name"  placeholder="enter name..." />
         </div>
-        <div class="input-section" style="margin-left: 15px;">
-          <label>CVV:</label>
-          <input type="text" name="CVV"  placeholder="XXX" />
-        </div>
-      </div>
-
-      <div class="flex-input">
-        <div class="input-section" style="flex-grow: 1;">
-          <label>Card Number:</label>
-          <input type="text" name="Credit" placeholder="Card number"/>
-        </div>
-
-        <div class="input-section" style="width: 250px; margin-left: 15px;">
-          <label>Expiration Date:</label>
-          <div style="display: flex;">
-            <input maxlength="2" type="text" name="monthex" style="width: 50px !important;" />
-            /
-            <input maxlength="4" type="text" name="yearex" style="width: 75px !important;"/>
-          </div>
-        </div>
-      </div>
 
       <div class="donation-input">
         <div class="input-section">
           <label>Donation Amount:</label>
           <div style="display: flex;">
-            $<input id="amount" type="text" name="Amount" />
+            $<input id="amount" type="text" name="amount" />
           </div>
         </div>
       </div>
 
-      <div style="display: flex;">
-        <button v-on:click="changeState" type="button" name="button" class="form-button">Submit</button>
-        <img style="margin-left: 15px;" width="300" height="94" src="{% static 'securetransaction.png' %}" alt="Stripe secure transaction">
-      </div>
-    </div>
+      <div class="form-row">
+        <label for="card-element" style="font-family: 'Oswald', sans-serif;">
+          Credit or debit card
+        </label>
+        <div id="card-element">
+        </div>
 
-    <div v-else>
-      <h1 style="font-family: sans-serif; color: black; font-size: 45px;">
-        Thank you for your donation!
-      </h1>
-      <br />
-      <p>
-        You're donation of $<% amount %> has been received.
-      </p>
-    </div>
+        <!-- Used to display form errors. -->
+        <div id="card-errors" role="alert"></div>
+      </div>
+
+      <img style="display: block; margin: 10px 0;" width="300" height="94" src="{% static 'securetransaction.png' %}" alt="Stripe secure transaction">
+
+      <button type="submit" class="form-button">Submit Payment</button>
+    </form>
   </div>
+
+  <script type="application/javascript">
+    var stripe = Stripe('pk_test_51HEkuTLZInSgn8lO91JyGKp3Q9NBvIu7mqBJy3SJu032zYxl2F7OplPCMj8fxgni6debuHkxeOJFBOKlYZefKazC00IrRQTUQ8');
+
+    // Create an instance of Elements.
+    var elements = stripe.elements();
+
+    var style = {
+      base: {
+        color: '#32325d',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#aab7c4'
+        }
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a'
+      }
+    };
+
+    // Create an instance of the card Element.
+    var card = elements.create('card', {style: style});
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    card.mount('#card-element');
+
+    // Handle real-time validation errors from the card Element.
+    card.on('change', function(event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
+
+    // Handle form submission.
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      stripe.createToken(card).then(function(result) {
+        if (result.error) {
+          // Inform the user if there was an error.
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          console.log(result.token)
+          // Send the token to your server.
+          stripeTokenHandler(result.token);
+        }
+      });
+    });
+
+    // Submit the form with the token ID.
+    function stripeTokenHandler(token) {
+      console.log('Submit Form')
+      // Insert the token ID into the form so it gets submitted to the server
+      var form = document.getElementById('payment-form');
+      var hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'stripeToken');
+      hiddenInput.setAttribute('value', token.id);
+      form.appendChild(hiddenInput);
+
+      // Submit the form
+      form.submit();
+    }
+  </script>
 {% endblock %}
