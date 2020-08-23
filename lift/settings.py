@@ -25,7 +25,7 @@ SECRET_KEY = '^40@c%a15nn%i81&10w0q!4f=64o3@l6uy1rdkcq4eg()@18v^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['emoore.pythonanywhere.com', 'localhost']
+ALLOWED_HOSTS = ['emoore.pythonanywhere.com', 'localhost', 'lift-church.com', 'www.lift-church.com']
 
 
 # Application definition
