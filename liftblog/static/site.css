@@ -187,6 +187,7 @@ p {
   font-family: sans-serif;
   color: 	#06070E;
   font-size: 20px;
+  box-sizing: border-box;
 }
 
 #slider {
@@ -550,4 +551,20 @@ footer {
 
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;
+}
+
+@media screen and (max-width: 1190px) {
+  #carouselText {
+    left: 100px;
+  }
+
+  #carouselText span {
+    font-size: 50px;
+    text-shadow: -2px 2px 3px black;
+  }
+
+  .padded-block {
+    width: 100%;
+    padding: 15px 25px;
+  }
 }
