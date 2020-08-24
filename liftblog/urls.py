@@ -17,6 +17,7 @@ urlpatterns = [
     path('roman-road/', views.roman_road, name="Lift Roman Road"),
     path('donate/', views.donate, name="Lift Donation"),
     path('charge/', views.charge, name="Charge"),
+    path('error/', views.donateError),
     path('team/', views.team, name="Lift Team"),
     path('contact/', views.contact, name="Lift Contact"),
     # admin paths

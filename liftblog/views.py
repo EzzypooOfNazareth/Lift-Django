@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.core import serializers
 from django.contrib.auth import logout, login, authenticate
@@ -119,18 +120,30 @@ def charge(request):
     if request.method == 'POST':
         print(request.POST)
 
-        customer = stripe.Customer.create(
-            name = request.POST['name']
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+            'price_data': {
+                'currency': 'usd',
+                'product_data': {
+                'name': 'Donation',
+                },
+                'unit_amount': (int(request.POST['amount']) * 100)
+            },
+            'quantity': 1,
+            }],
+            mode='payment',
+            success_url='https://www.lift-church.com/charge/',
+            cancel_url='https://example.com/cancel',
         )
+        print(session)
 
- #       charge = stripe.Charge.create(
- #           customer = customer,
- #           amount = (request.POST['amount'] * 100),
- #           currency= 'usd',
- #           description = 'Donation'
- #       )
+        return JsonResponse(session)
 
     return render(request, 'thankyou.html')
+
+def donateError(request):
+    return render(request, 'donation-error.html')
 
 def team(request):
     context = {
